@@ -1,59 +1,33 @@
-/.vscode
-
-# Archivos de sistema
-*.log
-*.tmp
-*.swp
-*.swo
-*.DS_Store
-Thumbs.db
-
-# Archivos de compilación
+HELP.md
 target/
-build/
-out/
-
-# Configuración de IDEs
-# IntelliJ IDEA
-.idea/
-*.iml
-
-# Eclipse
-.project
-.classpath
-.settings/
-
-# VS Code
-.vscode/
-
-# Archivos de dependencias
-*.jar
-*.war
-*.ear
-
-# Archivos de test coverage
-*.exec
-*.coverage
-*.cov
-*.lcov
-
-# Archivos de configuración locales
-#application-*.yml
-#application-*.properties
-.env
-
-# Archivos de Docker
-*.pid
-
-# Archivos de Maven Wrapper
 .mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
-# Archivos de Gradle Wrapper
-.gradle/
-gradle-app.setting
-!gradle-wrapper.jar
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
 
-# Archivos de cache
-.cache/
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
 
-#test
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
