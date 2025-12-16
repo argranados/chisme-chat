@@ -23,16 +23,18 @@ public class MessageController {
         String conversationId = body.get("conversationId");
         String senderId = body.get("senderId");
         String content = body.get("content");
-        if (conversationId == null || senderId == null || content == null) return ResponseEntity.badRequest().body("missing");
+        if (conversationId == null || senderId == null || content == null)
+            return ResponseEntity.badRequest().body("missing");
         Message m = new Message(conversationId, senderId, content);
-        messageRepository.save(m);  
-         return ResponseEntity.ok(m);
+        messageRepository.save(m);
+        return ResponseEntity.ok(m);
     }
 
     @GetMapping("/{conversationId}")
     public ResponseEntity<?> listMessages(@PathVariable String conversationId,
-                                          @RequestParam(defaultValue = "20") int limit) {
-        List<Message> msgs = messageRepository.findByConversationIdOrderByCreatedAtDesc(conversationId, PageRequest.of(0, limit));
+            @RequestParam(defaultValue = "20") int limit) {
+        List<Message> msgs = messageRepository.findByConversationIdOrderByCreatedAtDesc(conversationId,
+                PageRequest.of(0, limit));
         return ResponseEntity.ok(msgs);
-    }    
+    }
 }

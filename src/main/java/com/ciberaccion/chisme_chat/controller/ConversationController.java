@@ -21,7 +21,8 @@ public class ConversationController {
     public ResponseEntity<?> create(@RequestBody Map<String, String> body) {
         String title = body.get("title");
         String participants = body.get("participantIds"); // comma-separated user ids
-        if (title == null || participants == null) return ResponseEntity.badRequest().body("missing");
+        if (title == null || participants == null)
+            return ResponseEntity.badRequest().body("missing");
         Conversation c = new Conversation(title, participants);
         conversationRepository.save(c);
         return ResponseEntity.ok(c);
@@ -31,5 +32,5 @@ public class ConversationController {
     public ResponseEntity<?> listForUser(@PathVariable String userId) {
         List<Conversation> convos = conversationRepository.findByParticipantIdsContaining(userId);
         return ResponseEntity.ok(convos);
-    }    
+    }
 }
