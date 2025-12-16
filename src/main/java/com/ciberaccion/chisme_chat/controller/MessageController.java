@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/api/messages")
 public class MessageController {
     private final MessageRepository messageRepository;
 
@@ -24,8 +25,8 @@ public class MessageController {
         String content = body.get("content");
         if (conversationId == null || senderId == null || content == null) return ResponseEntity.badRequest().body("missing");
         Message m = new Message(conversationId, senderId, content);
-        messageRepository.save(m);
-        return ResponseEntity.ok(m);
+        messageRepository.save(m);  
+         return ResponseEntity.ok(m);
     }
 
     @GetMapping("/{conversationId}")

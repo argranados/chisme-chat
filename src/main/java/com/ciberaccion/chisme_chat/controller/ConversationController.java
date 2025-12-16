@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/api/conversations")
 public class ConversationController {
     private final ConversationRepository conversationRepository;
 
