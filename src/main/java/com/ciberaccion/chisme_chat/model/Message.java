@@ -24,7 +24,7 @@ public class Message {
     @Column(nullable = false)
     private Instant createdAt = Instant.now();
 
-    private boolean read = false;
+    private boolean readStatus = false;
 
     public Message() {}
     public Message(String conversationId, String senderId, String content) {
@@ -41,6 +41,6 @@ public class Message {
     public String getContent() { return content; }
     public void setContent(String content) { this.content = content; }
     public Instant getCreatedAt() { return createdAt; }
-    public boolean isRead() { return read; }
-    public void setRead(boolean read) { this.read = read; }
+    public boolean isReadStatus() { return readStatus; }
+    public void setReadStatus(boolean read) { this.readStatus = read; }
 }
