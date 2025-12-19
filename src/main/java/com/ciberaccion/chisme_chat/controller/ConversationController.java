@@ -34,11 +34,7 @@ public class ConversationController {
 
     @GetMapping("/user/{userId}")
     public ResponseEntity<?> listForUser(@PathVariable String userId) {
-        logger.info("Searching conversations for userId: {}", userId);
-        List<Conversation> allConvos = conversationRepository.findAll();
-        logger.info("Total conversations in DB: {}", allConvos.size());
-        allConvos.forEach(c -> logger.info("  Conversation: id={}, participantIds='{}'", c.getId(), c.getParticipantIds()));
-        
+        logger.info("Searching conversations for userId: {}", userId);        
         List<Conversation> convos = conversationRepository.findByParticipantIdsContaining(userId);
         logger.info("Found {} conversations for userId: {}", convos.size(), userId);
         return ResponseEntity.ok(convos);
