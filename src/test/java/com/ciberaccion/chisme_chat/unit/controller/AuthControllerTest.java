@@ -1,5 +1,6 @@
-package com.ciberaccion.chisme_chat.controller;
+package com.ciberaccion.chisme_chat.unit.controller;
 
+import com.ciberaccion.chisme_chat.controller.AuthController;
 import com.ciberaccion.chisme_chat.model.User;
 import com.ciberaccion.chisme_chat.repository.UserRepository;
 import com.ciberaccion.chisme_chat.security.JwtUtil;

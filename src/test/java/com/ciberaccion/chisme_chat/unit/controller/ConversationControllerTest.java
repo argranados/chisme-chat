@@ -1,5 +1,6 @@
-package com.ciberaccion.chisme_chat.controller;
+package com.ciberaccion.chisme_chat.unit.controller;
 
+import com.ciberaccion.chisme_chat.controller.ConversationController;
 import com.ciberaccion.chisme_chat.model.Conversation;
 import com.ciberaccion.chisme_chat.repository.ConversationRepository;
 import org.junit.jupiter.api.BeforeEach;

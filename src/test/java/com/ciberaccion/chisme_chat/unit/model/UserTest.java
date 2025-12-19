@@ -1,4 +1,4 @@
-package com.ciberaccion.chisme_chat.model;
+package com.ciberaccion.chisme_chat.unit.model;
 import org.junit.jupiter.api.Test;
 import com.ciberaccion.chisme_chat.model.User;
 
