@@ -5,6 +5,8 @@ import com.ciberaccion.chisme_chat.repository.MessageRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.Map;
@@ -12,6 +14,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/messages")
 public class MessageController {
+    private static final Logger logger = LoggerFactory.getLogger(MessageController.class);
     private final MessageRepository messageRepository;
 
     public MessageController(MessageRepository messageRepository) {
@@ -23,6 +26,7 @@ public class MessageController {
         String conversationId = body.get("conversationId");
         String senderId = body.get("senderId");
         String content = body.get("content");
+        logger.info("Sending message: conversationId={}, senderId={}, content={}", conversationId, senderId, content);
         if (conversationId == null || senderId == null || content == null)
             return ResponseEntity.badRequest().body("missing");
         Message m = new Message(conversationId, senderId, content);
