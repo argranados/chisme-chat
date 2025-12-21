@@ -11,8 +11,19 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/mydb
       SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "false"
+      JWT_SECRET: mysuperlongsecretkeythatshouldbeatleast64byteslongandrandomtouseinthe512signaturealgorithm
+      JWT_EXPIRATIONMS: 86400000
+      SERVER_PORT: 8080
     networks:
       - backend-net
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8080/actuator/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
 
   mysql:
     image: mysql:8.0
