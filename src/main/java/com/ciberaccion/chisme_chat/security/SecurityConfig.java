@@ -30,6 +30,7 @@ public class SecurityConfig {
         http.csrf().disable()
             .authorizeHttpRequests(authorize -> authorize
                 .requestMatchers("/api/auth/**", "/h2-console/**").permitAll()
+                .requestMatchers("/actuator/health", "/actuator/info").permitAll()
                 .anyRequest().authenticated()
             );
 
