@@ -65,3 +65,55 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+      # aqui se agrego configuracion para EB
+      - name: Generate Dockerrun.aws.json
+        run: |
+          echo '{
+              "AWSEBDockerrunVersion": "1",
+              "Image": {
+                "Name": "'$ECR_REGISTRY'/'$ECR_REPOSITORY':'$IMAGE_TAG'",
+                "Update": "true"
+              },
+              "Ports": [
+                { "ContainerPort": "8080" }
+              ]
+            }' > Dockerrun.aws.json
+
+      - name: Upload Dockerrun artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dockerrun 
+          path: Dockerrun.aws.json 
+          retention-days: 1
+
+  deploy-eb: 
+    runs-on: ubuntu-latest 
+    needs: docker-build-push
+    steps: 
+      - name: Checkout repo 
+        uses: actions/checkout@v3
+
+      - name: Download Dockerrun artifact 
+        uses: actions/download-artifact@v4 
+        with: 
+          name: dockerrun 
+          path: .
+
+      - name: Configure AWS credentials 
+        uses: aws-actions/configure-aws-credentials@v3 
+        with: 
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} 
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
+          aws-region: us-east-2 # ajusta a tu región
+
+      - name: Deploy to Elastic Beanstalk 
+        uses: einaregilsson/beanstalk-deploy@v21 
+        with: 
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }} 
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
+          application_name: chisme-chat-backend # nombre de tu app en EB 
+          environment_name: chisme-chat-env # nombre del environment en EB 
+          version_label: ${{ github.sha }} 
+          region: us-east-2 
+          deployment_package: Dockerrun.aws.json
