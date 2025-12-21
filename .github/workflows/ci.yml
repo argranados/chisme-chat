@@ -68,6 +68,10 @@ jobs:
 
       # aqui se agrego configuracion para EB
       - name: Generate Dockerrun.aws.json
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: chisme-chat
+          IMAGE_TAG:  ${{ github.sha }}
         run: |
           echo '{
               "AWSEBDockerrunVersion": "1",
@@ -79,6 +83,7 @@ jobs:
                 { "ContainerPort": "8080" }
               ]
             }' > Dockerrun.aws.json
+            cat Dockerrun.aws.json
 
       - name: Upload Dockerrun artifact
         uses: actions/upload-artifact@v4
