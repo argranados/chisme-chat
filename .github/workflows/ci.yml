@@ -107,17 +107,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
           aws-region: us-east-2 # ajusta a tu región
 
-      - name: Deploy to Elastic Beanstalk 
-        uses: einaregilsson/beanstalk-deploy@v21 
-        with: 
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }} 
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} 
-          application_name: chisme-chat # nombre de tu app en EB 
-          environment_name: chisme-chat-env # nombre del environment en EB 
-          version_label: ${{ github.sha }}-${{ github.run_id }}          
-          region: us-east-2 
-          deployment_package: Dockerrun.aws.json
-
       - name: Deploy to Elastic Beanstalk
         uses: einaregilsson/beanstalk-deploy@v21
         with:
