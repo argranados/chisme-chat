@@ -51,7 +51,10 @@ start application:
 - In VSC in spring boot dashoard, in APPS section press run button
 - in command line: $ mvn spring-boot:run
 
-Optional, H2 console http://localhost:8080/h2-console/login.jsp
+Optional, H2 console http://localhost:8080/h2-console/login.jsp  
+
+OJO aqui: si quiere correr en dev tiene que descomentar la linea spring.profiles.active=dev  
+en application.properties para que use application-dev.properties  
 
 Run local in Dockers  
 ejecutar docker-compose para crear las imagenes backend-api y mysql-db y correr los containers  

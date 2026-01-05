@@ -1,0 +1,53 @@
+This is dev log, created after I finish frit versionof app,
+this is to keep notes of issues, errors, imprvements, fixes, etc,
+
+Jan 03 postman test {{baseUrl}}/api/conversations esta fallando con error 403 cuando se hace manualmente, 
+si pasa cuando se corren los smoke-test
+Error era que estaba poniendo el endpint {{baseUrl}}/api/conversations/create y no debe ser /create
+
+Jan-04 I comming back after two weeks to continue working, I did stop aws environment
+and now I am facing issue in the aws deployment when I push a commit to gtihub,
+"CI/CD pipeline / deploy-eb (push) failing after 47s"
+log says:
+New build successfully uploaded to S3, bucket=elasticbeanstalk-us-east-2-501562868783
+Starting deployment of version a...9 to environment chisme-chat-env
+Deployment started, "wait_for_deployment" was true...
+02:56:21 INFO: Environment update is starting.
+02:56:25 INFO: Deploying new version to instance(s).
+02:56:28 INFO: New application version was deployed to running EC2 instances.
+02:56:28 INFO: Environment update completed successfully.
+Deployment finished. Version updated to afe7ae68ca7754e769ee7f6d97bc77df3d238376-20686608109
+Status for chisme-chat-chisme-chat-env is Ready, Health: Grey, HealthStatus: No Data
+Error: Deployment failed: Error: Environment still has health Grey 30 seconds after update finished!
+
+hace dos semananas hice una pausa y modifique la configuracion en environment de EB 
+para que no creara intancias de EC2, en capacity scheduled actions
+
+VER LOGS DE LA APLICACION DESDE DOCKER
+root@daccf4b1f6b8:/# docker logs --tail 20 daccf4b1f6b8
+
+SPRING_DATASOURCE_PASSWORD  chismepass
+SPRING_DATASOURCE_URL       jdbc:mysql://database-chisme-chat.cdikcgyeof79.us-east-2.rds.amazonaws.com:3306/database-chisme-chat
+SPRING_DATASOURCE_USERNAME  admin
+
+For Amazon Linux (AMI 2 & 2023)
+# Install the MariaDB client
+sudo yum install mariadb-client -y
+# or for Amazon Linux 2023, you might need a specific version like:
+sudo dnf install mariadb105 -y
+
+# mysql -h database-chisme-chat.cdikcgyeof79.us-east-2.rds.amazonaws.com -P 3306 -u admin -p
+
+CHECAR EN EC2 y LOCAL
+# cat /etc/os-release
+
+ERROR: smoke test corren bien en local con docker, pero fallan en AWS, el endpoint login falla:
+error 500 "error": "Authentication error: Illegal base64 character: '.'", 
+Solucion: EB jwt.secret mal valor, valor actual:
+jwt.secret=jwt.secret=mysuperlongsecretkeythatshouldbeatleast64byteslongandrandomtouseinthe512signaturealgorithm
+nuevo valor:
+mysuperlongsecretkeythatshouldbeatleast64byteslongandrandomtouseinthe512signaturealgorithm
+
+EVITAR QUE CORRA EL PIPELINE
+git commit -m "Update README [skip ci]"
+git push
