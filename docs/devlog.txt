@@ -51,3 +51,5 @@ mysuperlongsecretkeythatshouldbeatleast64byteslongandrandomtouseinthe512signatur
 EVITAR QUE CORRA EL PIPELINE
 git commit -m "Update README [skip ci]"
 git push
+
+Crear v1.0 tag "Primera version estable de chisme-chat"
